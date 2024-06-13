@@ -1,0 +1,18 @@
+{
+  "name": "Epson Extension",
+  "version": "1.0.0",
+  "description": "Prints on Epson",
+  "manifest_version": 3,
+  "author": "Vitor Soratto",
+  "action": {
+    "default_popup": "index.html",
+    "default_title": "Epson Extension"
+  },
+  "permissions": ["activeTab", "scripting"],
+  "content_scripts": [
+    {
+      "js": ["script.js"],
+      "matches": ["*://*/*", "file:///*", "https://www.google.com/*, localhost/*"]
+    }
+  ]
+}
