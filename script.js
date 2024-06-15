@@ -1,19 +1,31 @@
-var button = document.getElementsByName('btnPrint')[0];
+var buttons = document.getElementsByName('btnPrint');
 
-button.addEventListener('click', function () {
-  let object = [
-    {
-      name: 'ABEL ANTONIO DAL BO FILHOabc123',
-      parcel: '1',
-      value: '1123',
-      due_date: '2014-10-10',
-    },
-  ];
-  fetch('http://127.0.0.1:3000/print', {
+function getVals(id) {
+  const options = {
     method: 'POST',
-    body: JSON.stringify(object),
-    headers: {
-      'Content-type': 'application/json',
-    },
+    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+    body: new URLSearchParams({search: id})
+  };
+
+  return fetch('invoice_search.php', options)
+    .then(response => response.json())
+    .catch(err => console.error(err));
+}
+
+buttons.forEach((b) => {
+  b.addEventListener('click', function () {
+    let id = this.getAttribute('data-id')
+    getVals(id).then(res => {
+      fetch('http://localhost:3000/print', {
+        method: 'POST',
+        body: JSON.stringify(res),
+        headers: {
+          'Content-type': 'application/json',
+        },
+      });
+    });
+    
   });
 });
+
+

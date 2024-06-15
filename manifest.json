@@ -5,13 +5,14 @@
   "manifest_version": 3,
   "author": "Vitor Soratto",
   "action": {
-    "default_popup": "index.html",
     "default_title": "Epson Extension"
   },
-  "permissions": ["activeTab", "scripting"],
+  "permissions": ["activeTab", "scripting", "storage"],
   "content_scripts": [
     {
       "js": ["script.js"],
+      "run_at": "document_end",
+      "all_frames": false,
       "matches": ["*://*/*", "file:///*", "https://www.google.com/*, localhost/*"]
     }
   ]
